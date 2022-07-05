@@ -1,0 +1,20 @@
+[
+    {
+        "title": "Seed Post 1",
+        "content": "This is a Test Seed 1",
+        "user_id": 1
+    },
+    {
+        "title": "Seed Post 2",
+        "content": "This is a Test Seed 2",
+        "user_id": 2
+    },
+    
+    {
+        "title": "Seed Post 3",
+        "content": "This is a Test Seed 3",
+        "user_id": 3
+    }
+    
+
+]
