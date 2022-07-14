@@ -1,36 +1,67 @@
-// const postId = document.querySelector('input[name="post-id"]').value;
+//edit posts function
 
-// const editFormHandler = async function(event) {
-//   event.preventDefault();
+async function editFormHandler(event) {
+  event.preventDefault();
 
-//   const title = document.querySelector('input[name="post-title"]').value;
-//   const body = document.querySelector('textarea[name="post-body"]').value;
+  const postId = window.location.toString().split("/")[
+    window.location.toString().split("/").length - 1
+  ];
+}
+//Post Title & Post Text
 
-//   await fetch(`/api/post/${postId}`, {
-//     method: 'PUT',
-//     body: JSON.stringify({
-//       title,
-//       body
-//     }),
-//     headers: {
-//       'Content-Type': 'application/json'
-//     }
-//   });
+const title = document.querySelector('input[name="post-title"]').value;
+const post_container = document.querySelector(
+  'textarea[name="post-container"]'
+).value;
 
-//   document.location.replace('/dashboard');
-// };
+// use the route to update the post
 
-// const deleteClickHandler = async function() {
-//   await fetch(`/api/post/${postId}`, {
-//     method: 'DELETE'
-//   });
+const response = await fetch(`/api/posts/${postId}`, {
+  method: "PUT",
+  body: JSON.stringify({
+    title,
+    post_container,
+  }),
+  headers: { "Content-Type": "application/json" },
+});
+// If the post edited successfully display in dashboard
+// If not display error message
 
-//   document.location.replace('/dashboard');
-// };
+if (response.ok) {
+  document.location.replace("/dashboard");
 
-// document
-//   .querySelector('#edit-post-form')
-//   .addEventListener('submit', editFormHandler);
-// document
-//   .querySelector('#delete-btn')
-//   .addEventListener('click', deleteClickHandler);
+  //display an error
+} else {
+  alert(response.statusText);
+}
+
+//function to delete post
+
+async function deleteClickHandler(event) {
+  event.preventDefault();
+
+  //get post id from url
+  const postId = window.location.toString().split("/")[
+    window.location.toString().split("/").lenght - 1
+  ];
+  //using async function to delete the post
+
+  const response = await fetch(`/api/post/${postId}`, {
+    method: "DELETE",
+  });
+
+  //If post deleted successfully display dashboard
+  if (response.ok) {
+    document.location.replace("/dashboard");
+  } else {
+    alert(response.statusText);
+  }
+}
+
+document
+  .querySelector(".edit-post-form")
+  .addEventListener("submit", editFormHandler);
+
+document
+  .querySelector(".delete-post-button")
+  .addEventListener("click", deleteClickHandler);
